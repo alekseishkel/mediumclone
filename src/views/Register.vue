@@ -10,7 +10,7 @@
           VALIDATION ERRORS
           <form
             class="ng-pristine ng-valid ng-valid-email"
-            @submit.prevent="OnSubmit"
+            @submit.prevent="onSubmit"
           >
             <fieldset class="form-group">
               <input
@@ -39,6 +39,7 @@
             <button
               class="btn btn-lg btn-primary pull-xs-right ng-binding"
               type="submit"
+              :disabled="isSubmitting"
             >
               Sign up
             </button>
@@ -52,9 +53,14 @@
 <script>
 export default {
   name: 'AppRegister',
+  computed: {
+    isSubmitting() {
+      return this.$store.state.auth.isSubmitting;
+    },
+  },
   methods: {
-    OnSubmit() {
-      console.log('submitted');
+    onSubmit() {
+      this.$store.commit('registerStart');
     },
   },
 };
