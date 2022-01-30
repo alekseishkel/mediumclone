@@ -61,6 +61,13 @@ export default {
   methods: {
     onSubmit() {
       this.$store.commit('registerStart');
+      this.$store
+        .dispatch('register', {
+          email: 'gwe22ds2dafdsafafwgwd@gdsfsdadfsdfwegwe.com',
+          username: 'gdg22dfssfdasfdsf3dfdfasdfffsd',
+          password: 'gdsgsdggrege',
+        })
+        .then(() => console.log('registered'));
     },
   },
 };
