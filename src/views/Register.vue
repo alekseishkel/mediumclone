@@ -17,6 +17,7 @@
                 class="form-control form-control-lg ng-pristine ng-untouched ng-valid ng-empty"
                 type="text"
                 placeholder="Username"
+                v-model="username"
               />
             </fieldset>
 
@@ -25,6 +26,7 @@
                 class="form-control form-control-lg ng-pristine ng-untouched ng-valid ng-empty ng-valid-email"
                 type="email"
                 placeholder="Email"
+                v-model="email"
               />
             </fieldset>
 
@@ -33,6 +35,7 @@
                 class="form-control form-control-lg ng-pristine ng-untouched ng-valid ng-empty"
                 type="password"
                 placeholder="Password"
+                v-model="password"
               />
             </fieldset>
 
@@ -53,6 +56,13 @@
 <script>
 export default {
   name: 'AppRegister',
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+    };
+  },
   computed: {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting;
@@ -63,11 +73,13 @@ export default {
       this.$store.commit('registerStart');
       this.$store
         .dispatch('register', {
-          email: 'gwe22ds2dafdsafafwgwd@gdsfsdadfsdfwegwe.com',
-          username: 'gdg22dfssfdasfdsf3dfdfasdfffsd',
-          password: 'gdsgsdggrege',
+          username: this.username,
+          email: this.email,
+          password: this.password,
         })
-        .then(() => console.log('registered'));
+        .then(() => {
+          this.$router.push({ name: 'home' });
+        });
     },
   },
 };

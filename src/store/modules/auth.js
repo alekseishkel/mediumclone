@@ -1,18 +1,26 @@
 import authApi from "@/api/auth";
+import { setItem } from "@/helpers/localStorage";
 
 const state = {
-  isSubmitting: false
+  isSubmitting: false,
+  isLoggedIn: null,
+  currentUser: null,
+  validationErrors: null
 }
 
 const mutations = {
   registerStart(state) {
-    state.isSubmitting = true
+    state.isSubmitting = true;
+    state.validationErrors = null;
   },
-  registerSuccess(state) {
-    state.isSubmitting = false
+  registerSuccess(state, payload) {
+    state.isSubmitting = false;
+    state.isLoggedIn = true;
+    state.currentUser = payload
   },
-  registerFailure(state) {
-    state.isSubmitting = false
+  registerFailure(state, payload) {
+    state.isSubmitting = false;
+    state.validationErrors = payload;
   }
 }
 
@@ -23,6 +31,7 @@ const actions = {
         .register(credentials)
         .then((response) => {
           context.commit("registerSuccess", response.data.user);
+          setItem("accessToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch((result) => {
