@@ -7,7 +7,10 @@
           <p class="text-xs-center">
             <router-link :to="{ name: 'home' }"> Have an account? </router-link>
           </p>
-          VALIDATION ERRORS
+          <mcv-validation-errors
+            v-if="validationErrors"
+            :validationErrors="validationErrors"
+          />
           <form
             class="ng-pristine ng-valid ng-valid-email"
             @submit.prevent="onSubmit"
@@ -54,8 +57,12 @@
 </template>
 
 <script>
+import McvValidationErrors from '@/components/ValidationErrors.vue';
 export default {
   name: 'AppRegister',
+  components: {
+    McvValidationErrors,
+  },
   data() {
     return {
       username: '',
@@ -66,6 +73,9 @@ export default {
   computed: {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting;
+    },
+    validationErrors() {
+      return this.$store.state.auth.validationErrors;
     },
   },
   methods: {
