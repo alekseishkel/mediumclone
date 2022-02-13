@@ -17,7 +17,7 @@
           </router-link>
         </li>
 
-        <template v-if="!isLoggedIn">
+        <template v-if="isAnonimous">
           <li class="nav-item">
             <router-link
               class="nav-link"
@@ -41,7 +41,7 @@
           </li>
         </template>
 
-        <template v-if="isAnonimous">
+        <template v-if="isLoggedIn">
           <li class="nav-item">
             <router-link
               class="nav-link"
@@ -90,7 +90,7 @@ export default {
     ...mapGetters({
       currentUser: gettersTypes.currentUser,
       isLoggedIn: gettersTypes.isLoggedIn,
-      isAnonimous: gettersTypes.isAnonimous,
+      isAnonimous: gettersTypes.isAnonymous,
     }),
   },
 };

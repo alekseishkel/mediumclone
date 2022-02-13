@@ -1,6 +1,6 @@
 export const getItem = (key) => {
   try {
-    return JSON.parse(localStorage.getItem(key));
+    return localStorage.getItem(key);
   } catch (e) {
     console.log("Error when getting item from local storage", e)
     return null;
